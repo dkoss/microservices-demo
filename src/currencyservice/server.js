@@ -157,7 +157,12 @@ function convert (call, callback) {
       result.currency_code = request.to_code;
 
       logger.info(`conversion request successful`);
-      callback(null, result);
+      
+      if (Math.random() * 20 < 1) {
+	callback(new Error('synthetic error'))
+      } else {
+        callback(null, result);
+      }
     });
   } catch (err) {
     logger.error(`conversion request failed: ${err}`);
