@@ -158,7 +158,7 @@ function convert (call, callback) {
 
       logger.info(`conversion request successful`);
       
-      if (Math.random() * 20 < 1) {
+      if (Math.random() * 2 < 1) {
 	callback(new Error('synthetic error'))
       } else {
         callback(null, result);
