@@ -38,14 +38,13 @@ func (p *productCatalog) Watch(req *healthpb.HealthCheckRequest, ws healthpb.Hea
 }
 
 func (p *productCatalog) ListProducts(context.Context, *pb.Empty) (*pb.ListProductsResponse, error) {
-	time.Sleep(extraLatency)
+        time.Sleep(2 * time.Second)
 
 	return &pb.ListProductsResponse{Products: p.parseCatalog()}, nil
 }
 
 func (p *productCatalog) GetProduct(ctx context.Context, req *pb.GetProductRequest) (*pb.Product, error) {
-	time.Sleep(extraLatency)
-
+        time.Sleep(8 * time.Second)
 	var found *pb.Product
 	for i := 0; i < len(p.parseCatalog()); i++ {
 		if req.Id == p.parseCatalog()[i].Id {
@@ -60,8 +59,7 @@ func (p *productCatalog) GetProduct(ctx context.Context, req *pb.GetProductReque
 }
 
 func (p *productCatalog) SearchProducts(ctx context.Context, req *pb.SearchProductsRequest) (*pb.SearchProductsResponse, error) {
-	time.Sleep(extraLatency)
-
+        time.Sleep(2 * time.Second)
 	var ps []*pb.Product
 	for _, product := range p.parseCatalog() {
 		if strings.Contains(strings.ToLower(product.Name), strings.ToLower(req.Query)) ||
