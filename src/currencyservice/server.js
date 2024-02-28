@@ -31,6 +31,7 @@ else {
 // regardless of whether tracing is emitted.
 const { GrpcInstrumentation } = require('@opentelemetry/instrumentation-grpc');
 const { registerInstrumentations } = require('@opentelemetry/instrumentation');
+const { exit } = require('node:process');
 
 registerInstrumentations({
   instrumentations: [new GrpcInstrumentation()]
@@ -160,6 +161,8 @@ function convert (call, callback) {
       
       if (Math.random() * 20 < 1) {
 	callback(new Error('synthetic error'))
+      } else if (Math.random() * 100 < 1) {
+        exit(1);
       } else {
         callback(null, result);
       }
